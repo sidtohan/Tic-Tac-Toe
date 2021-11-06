@@ -1,0 +1,32 @@
+.board-block{
+  border: solid 1px black;
+}
+
+.game-board{
+  display: grid;
+  width: 500px;
+  height: 500px;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.game-display{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  width: 600px;
+}
+
+body{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+body,html{
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}

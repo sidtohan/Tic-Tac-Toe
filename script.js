@@ -11,12 +11,24 @@ const GameBoard = (function () {
     // some code
   }
 
+  const addListeners = (e) => {
+    // call from generate board
+  }
+
   const clear = () => {
     // clear array and call generateBoard
   }
 
   const generateBoard = () => {
-    // some code
+    for(let i = 0; i < 3; i++){
+      for(let j = 0; j < 3; j++){
+        let block = document.createElement('div');
+        block.classList.add('board-block');
+        block.setAttribute('data-row',i);
+        block.setAttribute('data-column',j);
+        gameBoardDiv.appendChild(block);
+      }
+    }
   }
 
   const checkValidBlock = () => {
@@ -24,12 +36,12 @@ const GameBoard = (function () {
   }
 
   return {
-    // just one function, will call clear and checkWin automatically
+    generateBoard,
     updateBlock
   }
 })();
 
-const Player = (function (chosenName,chosenMarker) {
+const Player = function (chosenName,chosenMarker) {
   let score = 0;
   let marker = chosenMarker;
   let name = chosenName;
@@ -38,17 +50,20 @@ const Player = (function (chosenName,chosenMarker) {
     return name;
   }
   
-  const getScore = () => {
-    return score;
+  const getMarker = () => {
+    return marker;
   }
 
-  const updateScore = () => {
-    // logic for updating score, when checkIfWin is called
+  return {
+    getName,
+    getMarker
   }
+};
 
 
-})();
-
+// Global Constants
+const gameBoardDiv = document.querySelector('.game-board');
 const user = Player("jeff", "O");
 const pc = Player("pc", "X");
 
+GameBoard.generateBoard();
