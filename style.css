@@ -1,28 +1,51 @@
 .board-block{
-  border: solid 1px black;
+  border: solid black 0.3vh;
+  border-radius: 2vh;
 }
 
 .game-board{
   box-sizing: border-box;
   display: grid;
-  height: 350px;
-  width: 350px;
+  height: 80vmin;
+  width: 80vmin;
+  grid-column-gap: 2vmin;
+  grid-row-gap: 2vmin;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
 .game-display{
   box-sizing: border-box;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 3vh;
   width: 100%;
+}
+
+.score{
+  display: flex;
+  justify-content: space-between;
+  width: 70vh;
+}
+
+.score-card{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20vmin;
+  height: 20vmin;
+  font-size: 6vh;
+  border-radius: 2vh;
+  border: solid black 0.3vh;
 }
 
 body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 3vh;
   background: linear-gradient(45deg, #d4e4ef 0%,#86aecc 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;

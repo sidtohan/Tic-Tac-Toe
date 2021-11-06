@@ -1,6 +1,5 @@
 // Global Objects
 const GameBoard = (function () {
-  // using 2D array for simplicity
   const _gameBoard = [[0, 1, 2], [3, 4, 5], [6, 7, 8]];
   let _currentTurn = 0;
 
@@ -102,7 +101,7 @@ const GameBoard = (function () {
         } else {
           player2.updateScore();
         }
-        console.log(`${player1.getName()}:${player1.getScore()} | ${player2.getName()}:${player2.getScore()}`);
+      
         if (player1.getScore() === 5) {
           console.log(`${player1.getName()} won the game`);
           player1.resetScore();
@@ -173,16 +172,23 @@ const GameBoard = (function () {
   }
 })();
 
-const Player = function (chosenName, chosenMarker) {
+const Player = function (chosenName, chosenMarker, chosenScoreCard) {
   let _marker = chosenMarker;
   let _name = chosenName;
   let _score = 0;
+  let _scoreCard = chosenScoreCard;
 
-  const linkScoreCard = (scoreCard) => {
 
-  } 
+  const setUpScoreCard = () => {
+    _scoreCard.children[1].textContent = _name;
+  }
+
   const resetScore = () => {
     _score = 0;
+  }
+
+  const getScoreCard = () => {
+    return _scoreCard;
   }
 
   const getScore = () => {
@@ -199,27 +205,28 @@ const Player = function (chosenName, chosenMarker) {
 
   const updateScore = () => {
     _score += 1;
+    _scoreCard.children[0].textContent = _score;
   }
 
   return {
     getName,
     getMarker,
+    getScoreCard,
     getScore,
     updateScore,
     resetScore,
-    linkScoreCard
+    setUpScoreCard
   }
 };
 
 
 // Global Constants
 const gameBoardDiv = document.querySelector('.game-board');
-const scoreCard1 = document.querySelector('.score-card.1');
-const scoreCard2 = document.querySelector('.score-card 2');
-const player1 = Player("jeff", "O");
-const player2 = Player("bob", "X");
+const scoreCard1 = document.querySelector('.score-card.p1');
+const scoreCard2 = document.querySelector('.score-card.p2');
+const player1 = Player("jeff", "O", scoreCard1);
+const player2 = Player("bob", "X", scoreCard2);
 
-player1.linkScoreCard(scoreCard1);
-player2.linkScoreCard(scoreCard2);
-
+player1.setUpScoreCard();
+player2.setUpScoreCard();
 GameBoard.generateBoard();
