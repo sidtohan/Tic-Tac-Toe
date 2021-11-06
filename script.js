@@ -73,7 +73,7 @@ const GameBoard = (function () {
   const _checkFull = () => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if(_checkValidBlock(i,j)){
+        if (_checkValidBlock(i, j)) {
           return false;
         }
       }
@@ -96,14 +96,29 @@ const GameBoard = (function () {
       }
 
       let value = _checkWin();
-      if(value !== null){
-        console.log(value);
+      if (value !== null) {
+        if (value === player1.getName()) {
+          player1.updateScore();
+        } else {
+          player2.updateScore();
+        }
+        console.log(`${player1.getName()}:${player1.getScore()} | ${player2.getName()}:${player2.getScore()}`);
+        if (player1.getScore() === 5) {
+          console.log(`${player1.getName()} won the game`);
+          player1.resetScore();
+          player2.resetScore();
+        }
+        else if (player2.getScore() === 5) {
+          console.log(`${player1.getName()} won the game`);
+          player1.resetScore();
+          player2.resetScore();
+        }
         _clear();
         generateBoard();
         _currentTurn = 0;
         return;
-      } 
-      if(_checkFull()){
+      }
+      if (_checkFull()) {
         console.log("draw");
         _clear();
         generateBoard();
@@ -159,28 +174,52 @@ const GameBoard = (function () {
 })();
 
 const Player = function (chosenName, chosenMarker) {
-  let score = 0;
-  let marker = chosenMarker;
-  let name = chosenName;
+  let _marker = chosenMarker;
+  let _name = chosenName;
+  let _score = 0;
+
+  const linkScoreCard = (scoreCard) => {
+
+  } 
+  const resetScore = () => {
+    _score = 0;
+  }
+
+  const getScore = () => {
+    return _score;
+  }
 
   const getName = () => {
-    return name;
+    return _name;
   }
 
   const getMarker = () => {
-    return marker;
+    return _marker;
+  }
+
+  const updateScore = () => {
+    _score += 1;
   }
 
   return {
     getName,
-    getMarker
+    getMarker,
+    getScore,
+    updateScore,
+    resetScore,
+    linkScoreCard
   }
 };
 
 
 // Global Constants
 const gameBoardDiv = document.querySelector('.game-board');
+const scoreCard1 = document.querySelector('.score-card.1');
+const scoreCard2 = document.querySelector('.score-card 2');
 const player1 = Player("jeff", "O");
 const player2 = Player("bob", "X");
+
+player1.linkScoreCard(scoreCard1);
+player2.linkScoreCard(scoreCard2);
 
 GameBoard.generateBoard();

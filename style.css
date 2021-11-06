@@ -26,6 +26,7 @@ body{
   background: linear-gradient(45deg, #d4e4ef 0%,#86aecc 100%);
   background-repeat: no-repeat;
   background-attachment: fixed;
+  font-family: "Raleway", Verdana, Geneva, Tahoma, sans-serif;
 }
 
 body,html{
