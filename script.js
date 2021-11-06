@@ -86,7 +86,8 @@ const GameBoard = (function () {
     let column = Number(e.target.getAttribute('data-column'));
     if (_checkValidBlock(row, column)) {
       let block = document.querySelector(`div[data-row="${row}"][data-column="${column}"`);
-      block.textContent = (_currentTurn === 0 ? player1.getMarker() : player2.getMarker());
+      let cloneImage = _currentTurn === 0 ? player1.getImageMarker().cloneNode() : player2.getImageMarker().cloneNode();
+      block.appendChild(cloneImage);
       _gameBoard[row][column] = (_currentTurn === 0 ? player1.getMarker() : player2.getMarker());
       if (_currentTurn === 0) {
         _currentTurn = 1;
@@ -178,6 +179,17 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
   let _score = 0;
   let _scoreCard = chosenScoreCard;
 
+  let _imageMarker = (function() {
+    let temp = document.createElement('img');
+    if(_marker == "O"){
+      temp.src = oPath;
+    } else{
+      temp.src = xPath;
+    }
+    temp.classList.add('marker-image');
+    return temp;
+  })();
+
 
   const setUpScoreCard = () => {
     _scoreCard.children[1].textContent = _name;
@@ -185,6 +197,10 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
 
   const resetScore = () => {
     _score = 0;
+  }
+
+  const getImageMarker = () => {
+    return _imageMarker;
   }
 
   const getScoreCard = () => {
@@ -213,14 +229,17 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
     getMarker,
     getScoreCard,
     getScore,
+    getImageMarker,
     updateScore,
     resetScore,
-    setUpScoreCard
+    setUpScoreCard,
   }
 };
 
 
 // Global Constants
+const oPath = "assets/o.png";
+const xPath = "assets/x.png"
 const gameBoardDiv = document.querySelector('.game-board');
 const scoreCard1 = document.querySelector('.score-card.p1');
 const scoreCard2 = document.querySelector('.score-card.p2');
@@ -229,4 +248,5 @@ const player2 = Player("bob", "X", scoreCard2);
 
 player1.setUpScoreCard();
 player2.setUpScoreCard();
+
 GameBoard.generateBoard();

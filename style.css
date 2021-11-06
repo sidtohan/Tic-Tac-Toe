@@ -1,6 +1,20 @@
+header{
+  font-size: 20vmin;
+}
+
 .board-block{
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: solid black 0.3vh;
   border-radius: 2vh;
+}
+
+.marker-image{
+  margin: 0;
+  padding: 0;
+  height: 5vh;
+  width: auto;
 }
 
 .game-board{
@@ -11,6 +25,7 @@
   grid-column-gap: 2vmin;
   grid-row-gap: 2vmin;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
 }
 
 .game-display{
@@ -20,6 +35,7 @@
   align-items: center;
   justify-content: center;
   gap: 3vh;
+  padding-bottom: 3vh;
   width: 100%;
 }
 
