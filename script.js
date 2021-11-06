@@ -1,28 +1,44 @@
 // Global Objects
 const GameBoard = (function () {
   // using 2D array for simplicity
-  const _gameBoard = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
+  const _gameBoard = [[0, 1, 2], [3, 4, 5], [6, 7, 8]];
   let _currentTurn = 0;
-  // 0 means player, and 1 means PC
 
   // Methods
   const _checkWin = () => {
-    // some code
+    // column check
+    console.log(_gameBoard);
+    for (let i = 0; i < 3; i++) {
+      if (_gameBoard[i][0] === _gameBoard[i][1]
+        && _gameBoard[i][1] === _gameBoard[i][2]) {
+        let winner;
+        if (player1.getMarker() === _gameBoard[i][0]) {
+          winner = player1.getName();
+        } else {
+          winner = player2.getName();
+        }
+        console.log(winner);
+        _clear();
+        generateBoard();
+        _currentTurn = 0;
+      }
+    }
+    return null;
   }
 
   const _placeMarker = (e) => {
-    // some code
-    let row = e.target.getAttribute('data-row');
-    let column = e.target.getAttribute('data-column');
-    if(_checkValidBlock(row,column)){
+    let row = Number(e.target.getAttribute('data-row'));
+    let column = Number(e.target.getAttribute('data-column'));
+    if (_checkValidBlock(row, column)) {
       let block = document.querySelector(`div[data-row="${row}"][data-column="${column}"`);
-      block.textContent = (_currentTurn === 0? user.getMarker() : pc.getMarker());
-      _gameBoard[row][column] = (_currentTurn === 0? user.getMarker() : pc.getMarker());
-      if(_currentTurn === 0){
+      block.textContent = (_currentTurn === 0 ? player1.getMarker() : player2.getMarker());
+      _gameBoard[row][column] = (_currentTurn === 0 ? player1.getMarker() : player2.getMarker());
+      if (_currentTurn === 0) {
         _currentTurn = 1;
-      } else{
+      } else {
         _currentTurn = 0;
       }
+      console.log(_checkWin());
     }
   }
 
@@ -37,7 +53,13 @@ const GameBoard = (function () {
   }
 
   const _clear = () => {
-    // clear array and call generateBoard
+    //reset array and call generateBoard
+    for (let i = 0; i < 3; i++) {
+      for(let j =0;j<3;j++){
+        _gameBoard[i][j] = 3*i + j;
+      }
+    }
+    gameBoardDiv.innerHTML = '';
   }
 
   const generateBoard = () => {
@@ -53,9 +75,10 @@ const GameBoard = (function () {
     _addListeners();
   }
 
+  // checks if the block is empty
+  // it is empty if it contains value equal to its index
   const _checkValidBlock = (row, column) => {
-    return _gameBoard[row][column] === 0;
-    // 0 means it was empty
+    return _gameBoard[row][column] === 3 * row + column;
   }
 
   return {
@@ -85,7 +108,7 @@ const Player = function (chosenName, chosenMarker) {
 
 // Global Constants
 const gameBoardDiv = document.querySelector('.game-board');
-const user = Player("jeff", "O");
-const pc = Player("pc", "X");
+const player1 = Player("jeff", "O");
+const player2 = Player("bob", "X");
 
 GameBoard.generateBoard();
