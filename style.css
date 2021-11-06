@@ -3,25 +3,26 @@
 }
 
 .game-board{
+  box-sizing: border-box;
   display: grid;
-  width: 500px;
-  height: 500px;
+  height: 350px;
+  width: 350px;
   grid-template-columns: 1fr 1fr 1fr;
 }
 
 .game-display{
+  box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  height: 600px;
-  width: 600px;
+  justify-content: center;
+  width: 100%;
 }
 
 body{
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 50px;
 }
 
 body,html{
