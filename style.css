@@ -11,10 +11,23 @@ header{
 }
 
 .marker-image{
+  animation: pop-in 0.15s ease-in-out forwards;
   margin: 0;
   padding: 0;
   height: 5vh;
   width: auto;
+}
+
+@keyframes pop-in {
+  0%{
+    opacity: 0;
+  }
+  50%{
+    opacity: 0.5;
+  }
+  100%{
+    opacity: 1;
+  }
 }
 
 .game-board{
