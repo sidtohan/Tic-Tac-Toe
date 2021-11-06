@@ -52,14 +52,14 @@ const GameBoard = (function () {
   }
 
   const _checkWin = () => {
-    let columnCheck = _checkColumns();
-    if (columnCheck !== null) {
-      return columnCheck;
-    }
-
     let rowCheck = _checkRows();
     if (rowCheck !== null) {
       return rowCheck;
+    }
+
+    let columnCheck = _checkColumns();
+    if (columnCheck !== null) {
+      return columnCheck;
     }
 
     let diagonalCheck = _checkDiagonals();
