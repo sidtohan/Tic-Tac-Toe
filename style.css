@@ -23,6 +23,9 @@ body{
   flex-direction: column;
   align-items: center;
   gap: 50px;
+  background: linear-gradient(45deg, #d4e4ef 0%,#86aecc 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 body,html{
