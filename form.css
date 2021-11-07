@@ -30,10 +30,10 @@
 
 .user-details{
   padding: 4vh;
-  width: 50vmin;
-  height: 50vh;
+  width: 60vmin;
+  height: 60vmin;
   font-size: 4vmin;
-  gap: 2vh;
+  gap: 6vmin;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -50,6 +50,7 @@
 .form-input{
   background: none;
   font-size: 4vmin;
+  padding: 1vmin;
   text-align: center;
   color: rgb(223,233,0);
   border: rgb(223,223,0) 0.3vh solid;
