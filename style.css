@@ -3,15 +3,15 @@
   align-items: center;
   justify-content: center;
   border: solid rgb(223, 223, 0) 0.5vh;
-  box-shadow: 0 0 10px 0 rgb(223, 223, 0);
+  box-shadow: 0 0 2vh 0 rgb(223, 223, 0);
   border-radius: 3vh;
 }
 
 .marker-image{
-  animation: pop-in 0.15s ease-in-out forwards;
+  animation: pop-in 0.2s ease-in-out forwards;
   margin: 0;
   padding: 0;
-  height: 10vmin;
+  height: 10vh;
   width: auto;
 }
 
@@ -30,21 +30,25 @@
 .game-board{
   box-sizing: border-box;
   display: grid;
-  height: 60vmin;
-  width: 60vmin;
-  grid-column-gap: 2vmin;
-  grid-row-gap: 2vmin;
+  height: 55vh;
+  width: 55vh;
+  grid-column-gap: 2vh;
+  grid-row-gap: 2vh;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
 }
 
 .game-display{
+  position: fixed;
+  padding: 5vh 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  gap: 5vh;
   width: 100%;
+  height: 100%;
 }
 
 .game-display.blur{
@@ -55,10 +59,9 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
-  gap: 5vmin;
+  gap: 5vh;
   align-items: center;
-  height: 30vmin;
-  width: 70vmin;
+  width: 70vh;
 }
 
 .score-card{
@@ -66,13 +69,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 15vmin;
-  height: 15vmin;
-  font-size: 6vmin;
+  width: 15vh;
+  height: 15vh;
+  font-size: 6vh;
   font-weight: bold;
-  border-radius: 2vh;
+  border-radius: 3vh;
   border: solid rgb(223, 223, 0) 0.5vh;
-  box-shadow: 0 0 10px 0 rgb(223, 223, 0);
+  box-shadow: 0 0 2vh 0 rgb(223, 223, 0);
 }
 
 .winner{
@@ -97,8 +100,8 @@
 
 .result-screen.active{
   visibility: visible;
-  font-size: 25vmin;
-  animation: result-pop-in 1.75s ease-in-out;
+  font-size: 15vh;
+  animation: result-pop-in 2s ease-in-out;
 }
 
 @keyframes result-pop-in {
@@ -119,7 +122,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   color: rgb(223, 223, 0);
   background: rgb(0, 0, 58);
   background-repeat: no-repeat;
@@ -131,4 +134,19 @@ body,html{
   height: 100%;
   width: 100%;
   margin: 0;
+}
+
+footer{
+  display: flex;
+  gap: 1vh;
+  align-items: center;
+  margin-top: auto;
+  font-size: 4vh;
+  font-weight: bold;
+}
+
+.github-logo{
+  display: block;
+  height: 4vh;
+  width: auto;
 }
