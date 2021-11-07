@@ -50,7 +50,7 @@ const GameBoard = (function () {
     return null;
   }
 
-  const _checkWin = () => {
+  const _checkRoundWin = () => {
     let rowCheck = _checkRows();
     if (rowCheck !== null) {
       return rowCheck;
@@ -95,39 +95,58 @@ const GameBoard = (function () {
         _currentTurn = 0;
       }
 
-      let value = _checkWin();
-      if (value !== null) {
-        if (value === player1.getName()) {
-          player1.updateScore();
-        } else {
-          player2.updateScore();
-        }
-      
-        if (player1.getScore() === 5) {
-          console.log(`${player1.getName()} won the game`);
-          player1.resetScore();
-          player2.resetScore();
-        }
-        else if (player2.getScore() === 5) {
-          console.log(`${player1.getName()} won the game`);
-          player1.resetScore();
-          player2.resetScore();
-        }
-        _clear();
-        generateBoard();
-        _currentTurn = 0;
-        return;
-      }
-      if (_checkFull()) {
-        console.log("draw");
-        _clear();
-        generateBoard();
-        _currentTurn = 0;
-        return;
-      }
+      _updateCardsAndResult();
+      _resetIfFull();
     }
   }
 
+  const _updateCardsAndResult = () => {
+    let value = _checkRoundWin();
+    if (value !== null) {
+      if (value === player1.getName()) {
+        player1.updateScore();
+      } else {
+        player2.updateScore();
+      }
+      resultScreen.textContent = `${value} won this round`;
+      resultScreen.classList.add('active');
+      gameDisplay.classList.add('blur');
+      _checkGameWin();
+      _clear();
+      generateBoard();
+      _currentTurn = 0;
+      return;
+    }
+  }
+
+  const _checkGameWin = () => {
+    if (player1.getScore() === 5) {
+      resultScreen.textContent = `${player1.getName()} won the game`;
+      resultScreen.classList.add('active');
+      gameDisplay.classList.add("blur");
+      player1.resetScore();
+      player2.resetScore();
+    }
+    else if (player2.getScore() === 5) {
+      resultScreen.textContent = `${player1.getName()} won the game`;
+      resultScreen.classList.add('active');
+      gameDisplay.classList.add("blur");
+      player1.resetScore();
+      player2.resetScore();
+    }
+  }
+
+  const _resetIfFull = () => {
+    if (_checkFull()) {
+      resultScreen.textContent = "DRAW";
+      resultScreen.classList.add("active");
+      gameDisplay.classList.add("blur");
+      _clear();
+      generateBoard();
+      _currentTurn = 0;
+      return;
+    }
+  }
 
   const _addListeners = (e) => {
     // call from generate board
@@ -179,11 +198,11 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
   let _score = 0;
   let _scoreCard = chosenScoreCard;
 
-  let _imageMarker = (function() {
+  let _imageMarker = (function () {
     let temp = document.createElement('img');
-    if(_marker == "O"){
+    if (_marker == "O") {
       temp.src = oPath;
-    } else{
+    } else {
       temp.src = xPath;
     }
     temp.classList.add('marker-image');
@@ -194,9 +213,10 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
   const setUpScoreCard = () => {
     _scoreCard.children[1].textContent = _name;
   }
-
+  
   const resetScore = () => {
     _score = 0;
+    _scoreCard.children[0].textContent = _score;
   }
 
   const getImageMarker = () => {
@@ -224,6 +244,7 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
     _scoreCard.children[0].textContent = _score;
   }
 
+
   return {
     getName,
     getMarker,
@@ -240,9 +261,11 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
 // Global Constants
 const oPath = "assets/o.png";
 const xPath = "assets/x.png"
+const gameDisplay = document.querySelector('.game-display');
 const gameBoardDiv = document.querySelector('.game-board');
 const scoreCard1 = document.querySelector('.score-card.p1');
 const scoreCard2 = document.querySelector('.score-card.p2');
+const resultScreen = document.querySelector('.result-screen');
 const player1 = Player("jeff", "O", scoreCard1);
 const player2 = Player("bob", "X", scoreCard2);
 
@@ -250,3 +273,8 @@ player1.setUpScoreCard();
 player2.setUpScoreCard();
 
 GameBoard.generateBoard();
+resultScreen.addEventListener('animationend', (e) => {
+  resultScreen.textContent = "";
+  resultScreen.classList.remove('active');
+  gameDisplay.classList.remove('blur');
+})
