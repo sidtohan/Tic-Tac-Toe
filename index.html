@@ -23,10 +23,16 @@
       <input name="username" class="form-input" type="text" placeholder="">
       <h2 class="marker-heading">Marker</h2>
       <div class="user-marker">
-        <input name="marker" class="form-input" type="radio" name="marker" value="X"> X
-        <input name="marker" class="form-input" type="radio" name="marker" value="O"> O
+        <label>
+          <input name="marker" class="form-input-radio" type="radio" name="marker" value="X">
+          <img class="left-img" src="assets/x.png" alt="X">
+        </label>
+        <label>
+          <input name="marker" class="form-input-radio" type="radio" name="marker" value="O">
+          <img class="right-img" src="assets/o.png" alt="O">
+        </label>
       </div>
-      <input class="submit" name="submit" type="submit" value="Submit"> 
+      <input class="submit" name="submit" type="submit" value="Submit">
     </form>
   </div>
   <div class="game-display">

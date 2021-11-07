@@ -29,14 +29,15 @@
 }
 
 .user-details{
-  padding: 4vh;
+  padding: 4vmin;
   width: 60vmin;
   height: 60vmin;
   font-size: 4vmin;
-  gap: 6vmin;
+  gap: 5vmin;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   border: rgb(223,223,0) 0.5vh solid;
   border-radius: 4vh;
 }
@@ -45,6 +46,34 @@
   display: flex;
   width: 80%;
   justify-content: center;
+  align-items: center;
+  gap: 3vmin;
+}
+
+.left-img{
+  float:left;
+}
+
+.right-img{
+  float: right;
+}
+
+input[type="radio"]{
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+input[type="radio"] + img{
+  cursor: pointer;
+  vertical-align: middle;
+  padding: auto 0;
+  height: 8vmin;
+}
+
+input[type="radio"]:checked + img{
+  box-shadow: 0 0 1vmin 0 rgb(223,223,0);
+  border-radius: 50%;
 }
 
 .form-input{
@@ -59,7 +88,11 @@
   font-family: "Raleway", Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.form-input:focus{
+.form-input-radio{
+  font-size: 4vmin;
+}
+
+.form-input:focus, .form-input-radio:focus{
   outline: none;
   box-shadow: 0 0 2vh 0 rgb(223,223,0);
 }
