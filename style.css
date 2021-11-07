@@ -3,14 +3,15 @@
   align-items: center;
   justify-content: center;
   border: solid rgb(223, 223, 0) 0.5vh;
-  border-radius: 2vh;
+  box-shadow: 0 0 10px 0 rgb(223, 223, 0);
+  border-radius: 3vh;
 }
 
 .marker-image{
   animation: pop-in 0.15s ease-in-out forwards;
   margin: 0;
   padding: 0;
-  height: 10vh;
+  height: 10vmin;
   width: auto;
 }
 
@@ -29,8 +30,8 @@
 .game-board{
   box-sizing: border-box;
   display: grid;
-  height: 70vmin;
-  width: 70vmin;
+  height: 60vmin;
+  width: 60vmin;
   grid-column-gap: 2vmin;
   grid-row-gap: 2vmin;
   grid-template-columns: 1fr 1fr 1fr;
@@ -53,7 +54,9 @@
 .score{
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 5vmin;
+  align-items: center;
   height: 30vmin;
   width: 70vmin;
 }
@@ -63,17 +66,26 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 20vmin;
-  height: 20vmin;
-  font-size: 6vh;
+  width: 15vmin;
+  height: 15vmin;
+  font-size: 6vmin;
+  font-weight: bold;
   border-radius: 2vh;
-  border: solid rgb(223, 223, 0) 0.3vh;
+  border: solid rgb(223, 223, 0) 0.5vh;
+  box-shadow: 0 0 10px 0 rgb(223, 223, 0);
+}
+
+.winner{
+  text-align: center;
+  width: 60%;
 }
 
 .result-screen{
   box-sizing: border-box;
-  text-align: center;
-  padding: 15vmin 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   z-index: 9;
   box-sizing: border-box;
   position: fixed;

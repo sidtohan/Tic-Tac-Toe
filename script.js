@@ -94,7 +94,6 @@ const GameBoard = (function () {
       } else {
         _currentTurn = 0;
       }
-
       _updateCardsAndResult();
       _resetIfFull();
     }
@@ -102,16 +101,25 @@ const GameBoard = (function () {
 
   const _updateCardsAndResult = () => {
     let value = _checkRoundWin();
+    let newDiv = document.createElement('div');
+    newDiv.classList.add('winner');
     if (value !== null) {
       if (value === player1.getName()) {
         player1.updateScore();
       } else {
         player2.updateScore();
       }
-      resultScreen.textContent = `${value} won this round`;
+      if (_checkGameWin()) {
+        _clear();
+        generateBoard();
+        _currentTurn = 0;
+        return;
+      }
+      newDiv.textContent = `${value} won this round`;
+      newDiv.classList.add('winner');
       resultScreen.classList.add('active');
       gameDisplay.classList.add('blur');
-      _checkGameWin();
+      resultScreen.appendChild(newDiv);
       _clear();
       generateBoard();
       _currentTurn = 0;
@@ -120,27 +128,37 @@ const GameBoard = (function () {
   }
 
   const _checkGameWin = () => {
+    let newDiv = document.createElement('div');
+    newDiv.classList.add("winner");
     if (player1.getScore() === 5) {
-      resultScreen.textContent = `${player1.getName()} won the game`;
+      newDiv.textContent = `${player1.getName()} won the game`;
       resultScreen.classList.add('active');
       gameDisplay.classList.add("blur");
+      resultScreen.appendChild(newDiv);
       player1.resetScore();
       player2.resetScore();
+      return true;
     }
     else if (player2.getScore() === 5) {
-      resultScreen.textContent = `${player1.getName()} won the game`;
+      newDiv.textContent = `${player1.getName()} won the game`;
       resultScreen.classList.add('active');
       gameDisplay.classList.add("blur");
+      resultScreen.appendChild(newDiv);
       player1.resetScore();
       player2.resetScore();
+      return true;
     }
+    return false;
   }
 
   const _resetIfFull = () => {
     if (_checkFull()) {
-      resultScreen.textContent = "DRAW";
+      let newDiv = document.createElement('div');
+      newDiv.textContent = "DRAW";
+      newDiv.classList.add('winner');
       resultScreen.classList.add("active");
       gameDisplay.classList.add("blur");
+      resultScreen.appendChild(newDiv);
       _clear();
       generateBoard();
       _currentTurn = 0;
@@ -213,7 +231,7 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
   const setUpScoreCard = () => {
     _scoreCard.children[1].textContent = _name;
   }
-  
+
   const resetScore = () => {
     _score = 0;
     _scoreCard.children[0].textContent = _score;
@@ -266,6 +284,7 @@ const gameBoardDiv = document.querySelector('.game-board');
 const scoreCard1 = document.querySelector('.score-card.p1');
 const scoreCard2 = document.querySelector('.score-card.p2');
 const resultScreen = document.querySelector('.result-screen');
+const winnerDiv = document.querySelector('.winner');
 const player1 = Player("jeff", "O", scoreCard1);
 const player2 = Player("bob", "X", scoreCard2);
 
@@ -274,7 +293,7 @@ player2.setUpScoreCard();
 
 GameBoard.generateBoard();
 resultScreen.addEventListener('animationend', (e) => {
-  resultScreen.textContent = "";
+  resultScreen.innerHTML = "";
   resultScreen.classList.remove('active');
   gameDisplay.classList.remove('blur');
 })
