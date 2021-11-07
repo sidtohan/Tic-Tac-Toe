@@ -32,6 +32,7 @@
   padding: 4vh;
   width: 50vmin;
   height: 50vh;
+  font-size: 4vmin;
   gap: 2vh;
   display: flex;
   flex-direction: column;
@@ -52,6 +53,7 @@
   text-align: center;
   color: rgb(223,233,0);
   border: rgb(223,223,0) 0.3vh solid;
+  border-radius: 4vmin;
   width: 50vmin;
   font-family: "Raleway", Verdana, Geneva, Tahoma, sans-serif;
 }

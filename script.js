@@ -72,7 +72,7 @@ const GameBoard = (function () {
   const _checkFull = () => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        if (_checkValidBlock(i, j)) {
+        if (checkValidBlock(i, j)) {
           return false;
         }
       }
@@ -80,41 +80,89 @@ const GameBoard = (function () {
     return true;
   }
 
+  const _playTurnEval = () => {
+    let roundWinName = _checkRoundWin();
+    if (roundWinName !== null) {
+      let gameWinName = _checkGameWin();
+      if (gameWinName !== null) {
+        _ifGameWon();
+      } else {
+        _ifRoundWon();
+      }
+      return true;
+    } else {
+      if (_resetIfFull()) {
+        return true;
+      };
+    };
+    return false;
+  }
 
-  const _placeMarker = (e) => {
+  const _playPc = () => {
+    let pcRow, pcColumn;
+    let item = pcPlay.generateMarker();
+    pcRow = item.row;
+    pcColumn = item.column;
+
+    _placeMarker(pcRow, pcColumn);
+    _playTurnEval();
+  }
+
+  const _playTurn = (e) => {
     let row = Number(e.target.getAttribute('data-row'));
     let column = Number(e.target.getAttribute('data-column'));
-    if (_checkValidBlock(row, column)) {
-      let block = document.querySelector(`div[data-row="${row}"][data-column="${column}"`);
-      let cloneImage = _currentTurn === 0 ? player1.getImageMarker().cloneNode() : player2.getImageMarker().cloneNode();
-      block.appendChild(cloneImage);
-      _gameBoard[row][column] = (_currentTurn === 0 ? player1.getMarker() : player2.getMarker());
-      if (_currentTurn === 0) {
-        _currentTurn = 1;
-      } else {
-        _currentTurn = 0;
+    if (checkValidBlock(row, column)) {
+      _placeMarker(row, column)
+
+      if (_playTurnEval()) {
+        return;
       }
-      _updateCardsAndResult();
-      _resetIfFull();
+      setTimeout(_playPc, 300);
     }
   }
 
-  const _updateCardsAndResult = () => {
+  const _placeMarker = (row, column) => {
+    let block = document.querySelector(`div[data-row="${row}"][data-column="${column}"`);
+    let cloneImage = _currentTurn === 0 ? player1.getImageMarker().cloneNode() : player2.getImageMarker().cloneNode();
+    block.appendChild(cloneImage);
+    _gameBoard[row][column] = (_currentTurn === 0 ? player1.getMarker() : player2.getMarker());
+    if (_currentTurn === 0) {
+      _currentTurn = 1;
+    } else {
+      _currentTurn = 0;
+    }
+  }
+
+
+  const _ifGameWon = (name) => {
+    let gameWonDiv = document.createElement('div');
+    gameWonDiv.classList.add('winner');
+    gameWonDiv.textContent = `${name} won the game`;
+    resultScreen.classList.add('active');
+    gameDisplay.classList.add("blur");
+    resultScreen.appendChild(gameWonDiv);
+    player1.resetScore();
+    player2.resetScore();
+    _clear();
+    generateBoard();
+    _currentTurn = 0;
+  }
+
+  const _ifRoundWon = () => {
     let value = _checkRoundWin();
-    let newDiv = document.createElement('div');
-    newDiv.classList.add('winner');
     if (value !== null) {
       if (value === player1.getName()) {
         player1.updateScore();
       } else {
         player2.updateScore();
       }
-      if (_checkGameWin()) {
-        _clear();
-        generateBoard();
-        _currentTurn = 0;
-        return;
+      let toBeWinner = _checkGameWin();
+      if (toBeWinner !== null) {
+        _ifGameWon(toBeWinner);
+        return true;
       }
+      let newDiv = document.createElement('div');
+      newDiv.classList.add('winner');
       newDiv.textContent = `${value} won this round`;
       newDiv.classList.add('winner');
       resultScreen.classList.add('active');
@@ -123,32 +171,21 @@ const GameBoard = (function () {
       _clear();
       generateBoard();
       _currentTurn = 0;
-      return;
+      return true;
     }
+    return false;
   }
 
   const _checkGameWin = () => {
     let newDiv = document.createElement('div');
     newDiv.classList.add("winner");
     if (player1.getScore() === 5) {
-      newDiv.textContent = `${player1.getName()} won the game`;
-      resultScreen.classList.add('active');
-      gameDisplay.classList.add("blur");
-      resultScreen.appendChild(newDiv);
-      player1.resetScore();
-      player2.resetScore();
-      return true;
+      return player1.getName();
     }
     else if (player2.getScore() === 5) {
-      newDiv.textContent = `${player1.getName()} won the game`;
-      resultScreen.classList.add('active');
-      gameDisplay.classList.add("blur");
-      resultScreen.appendChild(newDiv);
-      player1.resetScore();
-      player2.resetScore();
-      return true;
+      return player2.getName();
     }
-    return false;
+    return null;
   }
 
   const _resetIfFull = () => {
@@ -162,8 +199,9 @@ const GameBoard = (function () {
       _clear();
       generateBoard();
       _currentTurn = 0;
-      return;
+      return true;
     }
+    return false;
   }
 
   const _addListeners = (e) => {
@@ -171,7 +209,7 @@ const GameBoard = (function () {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         let block = document.querySelector(`div[data-row="${i}"][data-column="${j}"]`);
-        block.addEventListener('click', _placeMarker);
+        block.addEventListener('click', _playTurn);
       }
     }
   }
@@ -201,12 +239,13 @@ const GameBoard = (function () {
 
   // checks if the block is empty
   // it is empty if it contains value equal to its index
-  const _checkValidBlock = (row, column) => {
+  const checkValidBlock = (row, column) => {
     return _gameBoard[row][column] === 3 * row + column;
   }
 
   return {
-    generateBoard
+    generateBoard,
+    checkValidBlock
   }
 })();
 
@@ -275,6 +314,24 @@ const Player = function (chosenName, chosenMarker, chosenScoreCard) {
   }
 };
 
+const pcPlay = (function () {
+  const generateMarker = () => {
+    let row;
+    let column;
+    do {
+      row = Math.floor(Math.random() * 3);
+      column = Math.floor(Math.random() * 3);
+    } while (!GameBoard.checkValidBlock(row, column))
+    return {
+      row,
+      column
+    }
+  }
+
+  return {
+    generateMarker
+  }
+})()
 
 // Global Constants
 const oPath = "assets/o.png";
@@ -286,16 +343,14 @@ const scoreCard2 = document.querySelector('.score-card.p2');
 const resultScreen = document.querySelector('.result-screen');
 const winnerDiv = document.querySelector('.winner');
 
-
-
 // Players
 let player1;
 let player2;
 
-const setUpPlayers = (name,marker) => {
-  player1 = Player(name,marker,scoreCard1);
-  player2 = Player("Jeff",(marker == "O"? "X":"O"),scoreCard2);
-  
+const setUpPlayers = (name, marker) => {
+  player1 = Player(name, marker, scoreCard1);
+  player2 = Player("PC", (marker == "O" ? "X" : "O"), scoreCard2);
+
   player1.setUpScoreCard();
   player2.setUpScoreCard();
 }
