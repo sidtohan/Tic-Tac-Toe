@@ -1,0 +1,72 @@
+.initial-form > h2{
+  font-weight: bold !important;
+  font-size: 10vmin;
+}
+
+.initial-form{
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: rgb(0,0,58);
+  opacity: 1;
+}
+
+.initial-form.hidden{
+  opacity: 0;
+  visibility: hidden;
+  transition: all 1s ease-in-out;
+}
+
+.name-heading,.marker-heading{
+  margin: 0;
+  padding: 0;
+  font-size: 6vmin;
+}
+
+.user-details{
+  padding: 4vh;
+  width: 50vmin;
+  height: 50vh;
+  gap: 2vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: rgb(223,223,0) 0.5vh solid;
+  border-radius: 4vh;
+}
+
+.user-marker{
+  display: flex;
+  width: 80%;
+  justify-content: center;
+}
+
+.form-input{
+  background: none;
+  font-size: 4vmin;
+  text-align: center;
+  color: rgb(223,233,0);
+  border: rgb(223,223,0) 0.3vh solid;
+  width: 50vmin;
+  font-family: "Raleway", Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.form-input:focus{
+  outline: none;
+  box-shadow: 0 0 2vh 0 rgb(223,223,0);
+}
+
+.submit{
+  width: 80%;
+  background: none;
+  margin-top: auto;
+  border-radius: 5vmin;
+  border: rgb(223,223,0) 0.3vh solid;
+  color: rgb(223,223,0);
+  font-size: 5vmin;
+}
