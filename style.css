@@ -31,8 +31,8 @@
 .game-board{
   box-sizing: border-box;
   display: grid;
-  height: 55vmin;
-  width: 55vmin;
+  height: 65vmin;
+  width: 65vmin;
   grid-column-gap: 2vmin;
   grid-row-gap: 2vmin;
   grid-template-columns: 1fr 1fr 1fr;
@@ -40,13 +40,12 @@
 }
 
 .game-display{
-  position: fixed;
   padding: 5vmin 0;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   gap: 5vmin;
   width: 100%;
   height: 100%;
@@ -127,7 +126,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   color: rgb(223, 223, 0);
   background: rgb(0, 0, 58);
   background-repeat: no-repeat;
@@ -142,10 +141,11 @@ body,html{
 }
 
 footer{
-  display: flex;
+  width: 100%;
   gap: 1vmin;
+  display: flex;
   align-items: center;
-  margin-top: auto;
+  justify-content: center;
   font-size: 4vmin;
   font-weight: bold;
 }
