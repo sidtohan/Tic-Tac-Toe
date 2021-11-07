@@ -6,7 +6,7 @@ header{
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid black 0.3vh;
+  border: solid rgb(223, 223, 0) 0.5vh;
   border-radius: 2vh;
 }
 
@@ -14,7 +14,7 @@ header{
   animation: pop-in 0.15s ease-in-out forwards;
   margin: 0;
   padding: 0;
-  height: 5vh;
+  height: 10vh;
   width: auto;
 }
 
@@ -71,11 +71,13 @@ header{
   height: 20vmin;
   font-size: 6vh;
   border-radius: 2vh;
-  border: solid black 0.3vh;
+  border: solid rgb(223, 223, 0) 0.3vh;
 }
 
 .result-screen{
+  box-sizing: border-box;
   text-align: center;
+  padding: 15vh 0;
   z-index: 9;
   box-sizing: border-box;
   position: fixed;
@@ -109,7 +111,8 @@ body{
   flex-direction: column;
   align-items: center;
   gap: 3vh;
-  background: linear-gradient(45deg, #d4e4ef 0%,#86aecc 100%);
+  color: rgb(223, 223, 0);
+  background: rgb(0, 0, 58);
   background-repeat: no-repeat;
   background-attachment: fixed;
   font-family: "Raleway", Verdana, Geneva, Tahoma, sans-serif;
