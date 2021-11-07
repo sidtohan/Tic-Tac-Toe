@@ -285,11 +285,20 @@ const scoreCard1 = document.querySelector('.score-card.p1');
 const scoreCard2 = document.querySelector('.score-card.p2');
 const resultScreen = document.querySelector('.result-screen');
 const winnerDiv = document.querySelector('.winner');
-const player1 = Player("jeff", "O", scoreCard1);
-const player2 = Player("bob", "X", scoreCard2);
 
-player1.setUpScoreCard();
-player2.setUpScoreCard();
+
+
+// Players
+let player1;
+let player2;
+
+const setUpPlayers = (name,marker) => {
+  player1 = Player(name,marker,scoreCard1);
+  player2 = Player("Jeff",(marker == "O"? "X":"O"),scoreCard2);
+  
+  player1.setUpScoreCard();
+  player2.setUpScoreCard();
+}
 
 GameBoard.generateBoard();
 resultScreen.addEventListener('animationend', (e) => {

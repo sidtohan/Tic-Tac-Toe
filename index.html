@@ -6,7 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="script.js" defer></script>
+  <script src="form.js" defer></script>
   <link href="style.css" rel="stylesheet">
+  <link href="form.css" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100;300&display=swap" rel="stylesheet">
@@ -14,6 +16,19 @@
 </head>
 
 <body>
+  <div class="initial-form">
+    <h2>Enter Details</h2>
+    <form class="user-details">
+      <h2 class="name-heading">Name</h2>
+      <input name="username" class="form-input" type="text" placeholder="">
+      <h2 class="marker-heading">Marker</h2>
+      <div class="user-marker">
+        <input name="marker" class="form-input" type="radio" name="marker" value="X"> X
+        <input name="marker" class="form-input" type="radio" name="marker" value="O"> O
+      </div>
+      <input class="submit" name="submit" type="submit" value="Submit"> 
+    </form>
+  </div>
   <div class="game-display">
     <div class="score">
       <div class="score-card p1">
