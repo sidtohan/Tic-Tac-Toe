@@ -103,21 +103,22 @@ const GameBoard = (function () {
     let item = pcPlay.generateMarker();
     pcRow = item.row;
     pcColumn = item.column;
-
     _placeMarker(pcRow, pcColumn);
     _playTurnEval();
+    gameBoardDiv.classList.remove("intermission");
   }
 
   const _playTurn = (e) => {
     let row = Number(e.target.getAttribute('data-row'));
     let column = Number(e.target.getAttribute('data-column'));
     if (checkValidBlock(row, column)) {
+      gameBoardDiv.classList.add('intermission');
       _placeMarker(row, column)
-
       if (_playTurnEval()) {
+        gameBoardDiv.classList.remove("intermission");
         return;
       }
-      setTimeout(_playPc, 300);
+      setTimeout(_playPc, 400);
     }
   }
 

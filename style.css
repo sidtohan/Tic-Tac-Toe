@@ -39,6 +39,11 @@
   grid-template-rows: 1fr 1fr 1fr;
 }
 
+.game-board.intermission{
+  pointer-events: none;
+  user-select: none;
+}
+
 .game-display{
   padding: 5vmin 0;
   box-sizing: border-box;
@@ -143,6 +148,7 @@ body,html{
 footer{
   width: 100%;
   gap: 1vmin;
+  padding: 1vmin;
   display: flex;
   align-items: center;
   justify-content: center;
